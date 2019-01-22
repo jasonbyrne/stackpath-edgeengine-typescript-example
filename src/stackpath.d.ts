@@ -23,7 +23,7 @@ declare class StackPathRequest {
     referrer: string | null;
     mode: string | null;
     credentials: string;
-    headers: StackPathHeaders;
+    headers: Headers;
     remoteAddr: string;
 }
 

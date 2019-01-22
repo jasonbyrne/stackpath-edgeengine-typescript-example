@@ -1,4 +1,5 @@
-/// <reference path="./stackpath.d.ts" />
+import { Auth } from './auth';
+import { Cookies } from './cookies';
 
 addEventListener("fetch", (event: StackPathEvent) => {
     event.respondWith(handleRequest(event.request));
@@ -6,9 +7,12 @@ addEventListener("fetch", (event: StackPathEvent) => {
 
 async function handleRequest(request: StackPathRequest): Promise<Response> {
     try {
-        //const response = await fetch(request);
-        return new Response("Hello World", { status: 200 });
+        const auth = new Auth(request);
+        if (!auth.isAuthenticated()) {
+            return new Response('Permission denied.', { status: 403 });
+        }
+        return await fetch(request);
     } catch (e) {
         return new Response(e.stack || e, { status: 500 });
-    }
+   }
 }

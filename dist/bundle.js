@@ -86,14 +86,39 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/auth.ts":
+/*!*********************!*\
+  !*** ./src/auth.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst cookies_1 = __webpack_require__(/*! ./cookies */ \"./src/cookies.ts\");\nclass Auth {\n    constructor(request) {\n        this.request = request;\n        this.cookies = new cookies_1.Cookies(request);\n    }\n    isAuthenticated() {\n        return parseInt(this.cookies.get('userId')) > 0;\n    }\n}\nexports.Auth = Auth;\n\n\n//# sourceURL=webpack:///./src/auth.ts?");
+
+/***/ }),
+
+/***/ "./src/cookies.ts":
+/*!************************!*\
+  !*** ./src/cookies.ts ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nclass Cookies {\n    constructor(request) {\n        this.cookies = {};\n        this.request = request;\n        this.parseCookies();\n    }\n    parseCookies() {\n        const cookieArray = this.request.headers.get('cookie').split(';');\n        const me = this;\n        cookieArray.forEach((item) => {\n            const thisCookie = item.split('=');\n            me.cookies[thisCookie[0].trim()] = decodeURIComponent(thisCookie[1].trim());\n        });\n    }\n    get(key) {\n        return this.cookies[key];\n    }\n    getAll() {\n        return this.cookies;\n    }\n}\nexports.Cookies = Cookies;\n\n\n//# sourceURL=webpack:///./src/cookies.ts?");
+
+/***/ }),
+
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("/// <reference path=\"./stackpath.d.ts\" />\naddEventListener(\"fetch\", (event) => {\n    event.respondWith(handleRequest(event.request));\n});\nasync function handleRequest(request) {\n    try {\n        //const response = await fetch(request);\n        return new Response(\"Hello World\", { status: 200 });\n    }\n    catch (e) {\n        return new Response(e.stack || e, { status: 500 });\n    }\n}\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst auth_1 = __webpack_require__(/*! ./auth */ \"./src/auth.ts\");\naddEventListener(\"fetch\", (event) => {\n    event.respondWith(handleRequest(event.request));\n});\nasync function handleRequest(request) {\n    try {\n        const auth = new auth_1.Auth(request);\n        if (!auth.isAuthenticated()) {\n            return new Response('Permission denied.', { status: 403 });\n        }\n        return await fetch(request);\n    }\n    catch (e) {\n        return new Response(e.stack || e, { status: 500 });\n    }\n}\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ })
 
