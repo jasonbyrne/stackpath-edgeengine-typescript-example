@@ -1,10 +1,10 @@
-import { Request, Response, addEventListener, fetch } from './stackpath';
+/// <reference path="./stackpath.d.ts" />
 
-addEventListener("fetch", (event) => {
+addEventListener("fetch", (event: StackPathEvent) => {
     event.respondWith(handleRequest(event.request));
 });
 
-async function handleRequest(request: Request): Promise<Response> {
+async function handleRequest(request: StackPathRequest): Promise<Response> {
     try {
         //const response = await fetch(request);
         return new Response("Hello World", { status: 200 });

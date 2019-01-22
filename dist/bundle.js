@@ -91,22 +91,9 @@
   !*** ./src/index.ts ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst stackpath_1 = __webpack_require__(/*! ./stackpath */ \"./src/stackpath.ts\");\nstackpath_1.addEventListener(\"fetch\", (event) => {\n    event.respondWith(handleRequest(event.request));\n});\nasync function handleRequest(request) {\n    try {\n        //const response = await fetch(request);\n        return new stackpath_1.Response(\"Hello World\", { status: 200 });\n    }\n    catch (e) {\n        return new stackpath_1.Response(e.stack || e, { status: 500 });\n    }\n}\n\n\n//# sourceURL=webpack:///./src/index.ts?");
-
-/***/ }),
-
-/***/ "./src/stackpath.ts":
-/*!**************************!*\
-  !*** ./src/stackpath.ts ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\n\n\n//# sourceURL=webpack:///./src/stackpath.ts?");
+eval("/// <reference path=\"./stackpath.d.ts\" />\naddEventListener(\"fetch\", (event) => {\n    event.respondWith(handleRequest(event.request));\n});\nasync function handleRequest(request) {\n    try {\n        //const response = await fetch(request);\n        return new Response(\"Hello World\", { status: 200 });\n    }\n    catch (e) {\n        return new Response(e.stack || e, { status: 500 });\n    }\n}\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ })
 
