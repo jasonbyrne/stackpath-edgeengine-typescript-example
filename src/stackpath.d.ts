@@ -26,7 +26,3 @@ declare class StackPathRequest {
     headers: Headers;
     remoteAddr: string;
 }
-
-declare class StackPathHeaders {
-    [key: string]: string | string[]
-}
