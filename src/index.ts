@@ -1,5 +1,4 @@
 import { Auth } from './auth';
-import { Cookies } from './cookies';
 
 addEventListener("fetch", (event: StackPathEvent) => {
     event.respondWith(handleRequest(event.request));
